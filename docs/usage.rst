@@ -1,12 +1,12 @@
 .. _usage:
 
 Usage Guide
-==========
+===========
 
 This guide provides an overview of how to use the celparser package to parse and evaluate CEL expressions.
 
 Basic Usage
-----------
+-----------
 
 The simplest way to use celparser is with the ``compile`` function, which combines parsing and evaluation:
 
@@ -79,7 +79,7 @@ CEL supports various data types, including strings, numbers, booleans, lists, an
     print(expr4(context))  # Output: "alice@example.com"
 
 Built-in Functions
-----------------
+-----------------
 
 CEL provides several built-in functions:
 
@@ -102,7 +102,7 @@ CEL provides several built-in functions:
     print(expr8(context))  # Output: True
 
 Error Handling
-------------
+--------------
 
 celparser provides comprehensive error handling:
 
@@ -139,7 +139,7 @@ celparser provides comprehensive error handling:
         print(f"Undefined variable error caught: {e}")
 
 Advanced Usage
-------------
+--------------
 
 For more complex scenarios, you can combine multiple CEL expressions:
 

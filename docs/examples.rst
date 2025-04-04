@@ -1,15 +1,15 @@
 .. _examples:
 
 Examples
-=======
+========
 
 This page provides additional examples of using the celparser package for various use cases.
 
 Basic Examples
-------------
+--------------
 
 Simple Arithmetic
-~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~
 
 .. code-block:: python
 
@@ -26,7 +26,7 @@ Simple Arithmetic
     print(result)  # Output: 30
 
 String Operations
-~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~
 
 .. code-block:: python
 
@@ -47,7 +47,7 @@ String Operations
     print(result)  # Output: True
 
 Boolean Logic
-~~~~~~~~~~~
+~~~~~~~~~~~~~
 
 .. code-block:: python
 
@@ -70,7 +70,7 @@ Boolean Logic
     print(expr(context))  # Output: False
 
 Lists and Maps
-~~~~~~~~~~~
+~~~~~~~~~~~~~
 
 .. code-block:: python
 
@@ -95,10 +95,10 @@ Lists and Maps
     print(result)  # Output: "New York"
 
 Advanced Examples
---------------
+----------------
 
 Data Filtering
-~~~~~~~~~~~
+~~~~~~~~~~~~~~
 
 .. code-block:: python
 
@@ -128,7 +128,7 @@ Data Filtering
     print([user["name"] for user in filtered_users])  # Output: ["Charlie"]
 
 Permission Checking
-~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~
 
 .. code-block:: python
 
@@ -185,7 +185,7 @@ Permission Checking
     print(permission_check(context4))  # Output: False (not active)
 
 Configuration Validation
-~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~
 
 .. code-block:: python
 

@@ -1,12 +1,12 @@
 .. _installation:
 
 Installation
-===========
+============
 
 This page provides instructions for installing the celparser package.
 
 Requirements
------------
+------------
 
 - Python 3.8 or higher
 
@@ -29,7 +29,7 @@ You can also install celparser using uv:
     uv pip install celparser
 
 Installing from Source
---------------------
+---------------------
 
 To install the latest development version from source:
 
@@ -47,7 +47,7 @@ To install the latest development version from source:
        pip install .
 
 Development Installation
-----------------------
+------------------------
 
 If you want to contribute to celparser, you can install it in development mode:
 

@@ -27,6 +27,7 @@ dependencies = [
     "gunicorn==23.0.0",
     "pytest==8.3.5",
     "setuptools==78.1.0",
+    "sphinx>=8.2.3",
 ]
 
 [project.optional-dependencies]
