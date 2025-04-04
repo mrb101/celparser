@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PyCEL - Python Common Expression Language</title>
+    <link rel="stylesheet" href="https://cdn.replit.com/agent/bootstrap-agent-dark-theme.min.css">
+    <style>
+        .expression-result {
+            min-height: 3rem;
+            margin-top: 1rem;
+        }
+        
+        .example-card {
+            margin-bottom: 1rem;
+        }
+        
+        .code-block {
+            font-family: monospace;
+            background-color: var(--bs-body-bg);
+            border: 1px solid var(--bs-border-color);
+            border-radius: 0.25rem;
+            padding: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .output-block {
+            padding: 1rem;
+            border-radius: 0.25rem;
+            min-height: 3rem;
+        }
+        
+        .success {
+            background-color: rgba(25, 135, 84, 0.1);
+            border-left: 3px solid var(--bs-success);
+        }
+        
+        .error {
+            background-color: rgba(220, 53, 69, 0.1);
+            border-left: 3px solid var(--bs-danger);
+        }
+    </style>
+</head>
+<body>
+    <div class="container py-4">
+        <header class="pb-3 mb-4 border-bottom">
+            <div class="d-flex align-items-center">
+                <h1 class="fs-4">PyCEL <span class="text-secondary">Python Common Expression Language</span></h1>
+            </div>
+        </header>
+
+        <div class="row">
+            <div class="col-lg-7">
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h2 class="fs-5 mb-0">CEL Expression Evaluator</h2>
+                    </div>
+                    <div class="card-body">
+                        <form id="evaluate-form">
+                            <div class="mb-3">
+                                <label for="expression" class="form-label">Expression</label>
+                                <textarea class="form-control" id="expression" rows="3" placeholder="Enter a CEL expression, e.g.: a + b * 2"></textarea>
+                            </div>
+                            <div class="mb-3">
+                                <label for="context" class="form-label">Context (JSON)</label>
+                                <textarea class="form-control" id="context" rows="5" placeholder='{"a": 10, "b": 5}'></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Evaluate</button>
+                        </form>
+
+                        <div class="expression-result mt-3">
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <h3 class="fs-5">Result</h3>
+                                <div id="result-type" class="badge bg-secondary"></div>
+                            </div>
+                            <div id="result-container" class="output-block"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-5">
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h2 class="fs-5 mb-0">Examples</h2>
+                    </div>
+                    <div class="card-body">
+                        <div id="examples-container">
+                            <div class="d-flex justify-content-center">
+                                <div class="spinner-border text-secondary" role="status">
+                                    <span class="visually-hidden">Loading...</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mt-4">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="fs-5 mb-0">About PyCEL</h2>
+                    </div>
+                    <div class="card-body">
+                        <p>PyCEL is a Python implementation of Google's Common Expression Language (CEL). It provides a simple, powerful way to evaluate expressions in a safe, sandboxed environment.</p>
+                        <h3 class="fs-5 mt-3">Supported Features</h3>
+                        <ul>
+                            <li>Basic arithmetic operations (+, -, *, /, %)</li>
+                            <li>Comparison operators (==, !=, <, <=, >, >=)</li>
+                            <li>Logical operators (&&, ||, !)</li>
+                            <li>Conditional expressions (condition ? true_expr : false_expr)</li>
+                            <li>Function calls (size(), contains(), startsWith(), etc.)</li>
+                            <li>List and map literals</li>
+                            <li>Member access (obj.field) and index access (list[index])</li>
+                        </ul>
+                        <h3 class="fs-5 mt-3">Built-in Functions</h3>
+                        <ul>
+                            <li><code>size(obj)</code> - Get the size of a string, list, or map</li>
+                            <li><code>contains(container, item)</code> - Check if a container contains an item</li>
+                            <li><code>startsWith(str, prefix)</code> - Check if a string starts with a prefix</li>
+                            <li><code>endsWith(str, suffix)</code> - Check if a string ends with a suffix</li>
+                            <li><code>matches(str, pattern)</code> - Check if a string matches a regex pattern</li>
+                            <li><code>int(value)</code>, <code>float(value)</code>, <code>bool(value)</code>, <code>string(value)</code> - Type conversion</li>
+                            <li><code>type(value)</code> - Get the type of a value as a string</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Load examples
+            fetch('/examples')
+                .then(response => response.json())
+                .then(examples => {
+                    const container = document.getElementById('examples-container');
+                    container.innerHTML = '';
+                    
+                    examples.forEach(example => {
+                        const card = document.createElement('div');
+                        card.className = 'example-card';
+                        card.innerHTML = `
+                            <h3 class="fs-6">${example.name}</h3>
+                            <p class="text-secondary small">${example.description}</p>
+                            <div class="code-block">
+                                <div><strong>Expression:</strong> ${example.expression}</div>
+                                <div><strong>Context:</strong> ${JSON.stringify(example.context)}</div>
+                            </div>
+                            <button class="btn btn-sm btn-outline-secondary try-example">Try this example</button>
+                        `;
+                        
+                        container.appendChild(card);
+                        
+                        // Add click handler for the "Try" button
+                        card.querySelector('.try-example').addEventListener('click', () => {
+                            document.getElementById('expression').value = example.expression;
+                            document.getElementById('context').value = JSON.stringify(example.context, null, 2);
+                        });
+                    });
+                })
+                .catch(error => {
+                    console.error('Error loading examples:', error);
+                    document.getElementById('examples-container').innerHTML = 
+                        '<div class="alert alert-danger">Error loading examples</div>';
+                });
+            
+            // Form submission
+            document.getElementById('evaluate-form').addEventListener('submit', event => {
+                event.preventDefault();
+                
+                const expressionValue = document.getElementById('expression').value;
+                let contextValue = {};
+                
+                try {
+                    contextValue = JSON.parse(document.getElementById('context').value);
+                } catch (e) {
+                    showError('Invalid JSON in context field');
+                    return;
+                }
+                
+                // Send to server for evaluation
+                fetch('/evaluate', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        expression: expressionValue,
+                        context: contextValue
+                    })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        showResult(data.result, data.type);
+                    } else {
+                        showError(data.error);
+                    }
+                })
+                .catch(error => {
+                    showError('Server error: ' + error.message);
+                });
+            });
+            
+            function showResult(result, type) {
+                const container = document.getElementById('result-container');
+                const typeDisplay = document.getElementById('result-type');
+                
+                container.className = 'output-block success';
+                container.textContent = formatValue(result);
+                typeDisplay.textContent = type;
+                typeDisplay.className = 'badge bg-success';
+            }
+            
+            function showError(message) {
+                const container = document.getElementById('result-container');
+                const typeDisplay = document.getElementById('result-type');
+                
+                container.className = 'output-block error';
+                container.textContent = message;
+                typeDisplay.textContent = 'Error';
+                typeDisplay.className = 'badge bg-danger';
+            }
+            
+            function formatValue(value) {
+                if (value === null) return 'null';
+                if (typeof value === 'object') return JSON.stringify(value, null, 2);
+                return String(value);
+            }
+        });
+    </script>
+</body>
+</html>
