@@ -1,5 +1,5 @@
 """
-Flask web application for demonstrating the PyCEL library
+Flask web application for demonstrating the celparser library
 """
 
 from flask import Flask, render_template, request, jsonify
@@ -7,10 +7,10 @@ import sys
 import os
 import json
 
-# Add the current directory to the path so we can import the pycel package
+# Add the current directory to the path so we can import the celparser package
 sys.path.insert(0, os.path.abspath("."))
 
-# Import from the local pycel package
+# Import from the local celparser package
 from celparser.parser import parse
 from celparser.evaluator import Evaluator
 

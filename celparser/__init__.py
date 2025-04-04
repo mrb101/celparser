@@ -1,5 +1,5 @@
 """
-PyCEL - Python parser and evaluator for Google Common Expression Language
+celparser - Python parser and evaluator for Google Common Expression Language
 """
 
 __version__ = "0.1.0"

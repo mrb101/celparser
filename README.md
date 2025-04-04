@@ -1,10 +1,10 @@
-# PyCEL - Python Common Expression Language Parser
+# celparser - Python Common Expression Language Parser
 
 A Python implementation of Google's Common Expression Language (CEL) parser and evaluator.
 
 ## Overview
 
-PyCEL is a Python package that provides parsing and evaluation of Google's Common Expression Language (CEL). CEL is a simple expression language that lets you check whether a condition is true or false at runtime. It's designed to be simple, portable, and safe to execute in constrained environments.
+celparser is a Python package that provides parsing and evaluation of Google's Common Expression Language (CEL). CEL is a simple expression language that lets you check whether a condition is true or false at runtime. It's designed to be simple, portable, and safe to execute in constrained environments.
 
 CEL is used in various Google products and open-source projects for policy enforcement, data filtering, and configuration.
 

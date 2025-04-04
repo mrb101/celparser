@@ -1,6 +1,6 @@
 # celparser Python Style Guide
 
-This document outlines the coding standards and best practices for the PyCEL project, a Python parser and evaluator for Google Common Expression Language (CEL).
+This document outlines the coding standards and best practices for the celparser project, a Python parser and evaluator for Google Common Expression Language (CEL).
 
 ## General Principles
 

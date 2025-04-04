@@ -1,11 +1,11 @@
 """
-Basic usage examples for the PyCEL package
+Basic usage examples for the celparser package
 """
 
 import sys
 import os
 
-# Add the current directory to the path so we can import the pycel package
+# Add the current directory to the path so we can import the celparser package
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 # Import directly from modules to avoid package import issues

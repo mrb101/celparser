@@ -4,7 +4,7 @@ setup(
     name="celparser",
     version="0.1.0",
     description="Python parser and evaluator for Google Common Expression Language (CEL)",
-    author="PyCEL Team",
+    author="Bassel J. Hamadeh",
     author_email="hamadeh.basel@gmail.com",
     url="https://github.com/mrb101/celparser",
     packages=find_packages(),
