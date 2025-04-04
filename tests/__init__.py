@@ -1,3 +1,3 @@
 """
-Test package for PyCEL
+Test package for celparser
 """
